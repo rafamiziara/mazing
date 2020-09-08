@@ -13,7 +13,7 @@ module.exports = ({ difficult }) => {
         <p></p>
       </div>
       <button id="btn" class="hidden">NEXT STAGE</button>
-      <script type="text/javascript" src="/js/index.js"></script>
+      <script type="text/javascript" src="/js/app.js"></script>
     `
   })
 }
