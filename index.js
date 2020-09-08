@@ -3,7 +3,7 @@ const app = express();
 
 app.use(express.static('public'));
 
-const router = require('./src/routes');
+const router = require('./routes');
 app.use(router);
 
 const PORT = process.env.PORT || 3000;
