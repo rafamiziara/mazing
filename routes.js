@@ -8,8 +8,8 @@ router.get('/', (req, res) => {
   res.send(homeView());
 });
 
-router.get('/game/:difficult', (req, res) => {
-  res.send(gameView({ difficult: req.params.difficult }));
+router.get('/game/:level', (req, res) => {
+  res.send(gameView({ level: req.params.level }));
 });
 
 module.exports = router;
