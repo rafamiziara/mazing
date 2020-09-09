@@ -1,4 +1,4 @@
-module.exports = ({ content, difficult }) => {
+module.exports = ({ content, level }) => {
   return `
     <!DOCTYPE html>
     <html>
@@ -8,7 +8,7 @@ module.exports = ({ content, difficult }) => {
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
       </head>
-      <body dif=${difficult}>
+      <body level=${level}>
         ${content}
       </body>
     </html>
