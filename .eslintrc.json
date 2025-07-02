@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "@rocketseat/eslint-config/next"
+  ],
+  "rules": {
+		"prettier/prettier": ["error", {
+      "printWidth": 140,
+      "trailingComma": "es5",
+      "semi": false,
+      "endOfLine": "auto"
+    }]
+	}
+}
