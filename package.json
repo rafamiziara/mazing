@@ -12,6 +12,7 @@
   "author": "Rafael Miziara",
   "license": "ISC",
   "dependencies": {
+    "matter-js": "^0.20.0",
     "next": "^15.3.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.2.2",
     "@tailwindcss/postcss": "^4.1.9",
+    "@types/matter-js": "^0.19.8",
     "@types/node": "24.0.0",
     "@types/react": "19.1.7",
     "eslint-config-next": "15.3.3",
