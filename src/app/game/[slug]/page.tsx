@@ -4,17 +4,10 @@ import Header from './header'
 import Maze from './maze'
 import Message from './message'
 
-type Props = {
-  params: {
-    slug: string
-  }
-}
-
-export default function Page({ params }: Props) {
+export default function Page() {
   const [finished, setFinished] = useState(false)
 
   const onFinished = () => {
-    console.log('FINISHED LEVEL!', params.slug)
     setFinished(true)
   }
 
