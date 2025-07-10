@@ -12,6 +12,7 @@
   "author": "Rafael Miziara",
   "license": "ISC",
   "dependencies": {
+    "dayjs": "^1.11.13",
     "matter-js": "^0.20.0",
     "next": "^15.3.3",
     "react": "^19.1.0",

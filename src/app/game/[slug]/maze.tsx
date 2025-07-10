@@ -2,31 +2,36 @@
 import { GameLevel } from '@/types'
 import { addBallMovement, addWinCondition, buildBall, buildGoal, buildWalls, createWorld, getStage } from '@/utils/maze'
 import { World } from 'matter-js'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Message from './message'
 
 type Props = {
   level: GameLevel
+  start: () => void
+  pause: () => void
+  time: number
 }
 
-export default function Maze({ level }: Props) {
+export default function Maze({ level, start, pause, time }: Props) {
   const [finished, setFinished] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
-  const onFinished = () => {
+  const onFinished = useCallback(() => {
     setFinished(true)
-  }
+    pause()
+  }, [pause])
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && canvasRef.current !== null) {
+    if (typeof window !== 'undefined' && canvasRef.current !== null && !finished) {
       generateMaze(getStage(level), onFinished, canvasRef.current)
+      start()
     }
-  }, [level])
+  }, [level, onFinished, start, finished])
 
   return (
     <>
       <canvas ref={canvasRef} />
-      {finished && <Message />}
+      {finished && <Message time={time} />}
     </>
   )
 }
