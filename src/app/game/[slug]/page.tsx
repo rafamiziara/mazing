@@ -1,15 +1,15 @@
-import { GameLevel, GameLevels } from '@/types'
+import { GameLevel } from '@/types'
+import { Metadata } from 'next'
 import Header from './header'
 import Maze from './maze'
 
 type Props = {
-  params: {
-    slug: GameLevel
-  }
+  params: Promise<{ slug: GameLevel }>
 }
 
-export async function generateMetadata(): Promise<Props['params'][]> {
-  return GameLevels.map((level) => ({ slug: level }))
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  return { title: slug }
 }
 
 export default async function Page({ params }: Props) {
