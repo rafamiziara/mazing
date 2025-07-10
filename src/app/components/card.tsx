@@ -1,18 +1,18 @@
 import Link from 'next/link'
 
 type CardProps = React.HTMLAttributes<HTMLElement> & {
-  stage: string
-  href: string
+  title: string
+  stage: number
 }
 
-const Card: React.FC<CardProps> = ({ stage, href, ...rest }) => {
+const Card: React.FC<CardProps> = ({ title, stage, ...rest }) => {
   return (
     <Link
-      key={href}
-      href={`/game/${href}`}
+      key={stage}
+      href={`/game?stage=${stage}`}
       className={`col-span-6 lg:col-span-1 w-10/12 lg:w-36 font-semibold text-center place-content-center min-h-30 text-black text-lg p-6 rounded-lg ${rest.className}`}
     >
-      {stage.toLocaleUpperCase()}
+      {title.toLocaleUpperCase()}
     </Link>
   )
 }
