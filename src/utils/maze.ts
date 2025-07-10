@@ -59,11 +59,13 @@ export const buildWalls = (stage: number, width: number, height: number) => {
   const border = initialB * Math.pow(0.95, stage) * 5
   const wallsSize = border / 2
 
+  const borderOptions: Matter.IChamferableBodyDefinition = { label: 'border', isStatic: true, render: { fillStyle: '#5B6C5D' } }
+
   const walls = [
-    Bodies.rectangle(width / 2, 0, width, border, { label: 'border', isStatic: true, render: { fillStyle: '#5B6C5D' } }),
-    Bodies.rectangle(width / 2, height, width, border, { label: 'border', isStatic: true, render: { fillStyle: '#5B6C5D' } }),
-    Bodies.rectangle(0, height / 2, border, height, { label: 'border', isStatic: true, render: { fillStyle: '#5B6C5D' } }),
-    Bodies.rectangle(width, height / 2, border, height, { label: 'border', isStatic: true, render: { fillStyle: '#5B6C5D' } }),
+    Bodies.rectangle(width / 2, 0, width, border, borderOptions),
+    Bodies.rectangle(width / 2, height, width, border, borderOptions),
+    Bodies.rectangle(0, height / 2, border, height, borderOptions),
+    Bodies.rectangle(width, height / 2, border, height, borderOptions),
   ]
 
   const verticals = Array(cellsVertical)
