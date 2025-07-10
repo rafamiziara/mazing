@@ -1,22 +1,28 @@
 'use client'
-import { addBallMovement, addWinCondition, buildBall, buildGoal, buildWalls, createWorld } from '@/utils/maze'
+import { addBallMovement, addWinCondition, buildBall, buildGoal, buildWalls, createWorld, getLevel } from '@/utils/maze'
 import { World } from 'matter-js'
+import { memo, useEffect, useRef } from 'react'
 
 type Props = {
   onFinished: () => void
+  level: string
 }
 
-export default function Maze({ onFinished }: Props) {
-  if (typeof window !== 'undefined') {
-    generateMaze(10, onFinished)
-  }
+export default memo(function Maze({ onFinished, level }: Props) {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
-  return <></>
-}
+  useEffect(() => {
+    if (typeof window !== 'undefined' && canvasRef.current !== null) {
+      generateMaze(getLevel(level), onFinished, canvasRef.current)
+    }
+  }, [onFinished, level])
 
-const generateMaze = (stage: number, onFinished: () => void) => {
+  return <canvas ref={canvasRef} />
+})
+
+const generateMaze = (stage: number, onFinished: () => void, canvas: HTMLCanvasElement) => {
   // Create world
-  const { engine, height, width, world, render } = createWorld()
+  const { engine, height, width, world } = createWorld(canvas)
 
   // Build walls
   const { walls, unitLengthX, unitLengthY } = buildWalls(stage, width, height)
@@ -35,6 +41,4 @@ const generateMaze = (stage: number, onFinished: () => void) => {
 
   // Add win condition
   addWinCondition(engine, onFinished)
-
-  return { engine, world, render }
 }

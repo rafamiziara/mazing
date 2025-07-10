@@ -1,20 +1,26 @@
 'use client'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import Header from './header'
 import Maze from './maze'
 import Message from './message'
 
-export default function Page() {
+type Props = {
+  params: {
+    slug: string
+  }
+}
+
+export default function Page({ params }: Props) {
   const [finished, setFinished] = useState(false)
 
-  const onFinished = () => {
+  const onFinished = useCallback(() => {
     setFinished(true)
-  }
+  }, [])
 
   return (
     <>
       <Header />
-      <Maze onFinished={onFinished} />
+      <Maze level={params.slug} onFinished={onFinished} />
       {finished && <Message />}
     </>
   )

@@ -1,5 +1,20 @@
 import { Bodies, Body, Engine, Events, Render, Runner } from 'matter-js'
 
+export const getLevel = (level: string) => {
+  switch (level) {
+    case 'easy':
+      return 0
+    case 'medium':
+      return 5
+    case 'hard':
+      return 10
+    case 'super-hard':
+      return 15
+    default:
+      return 0
+  }
+}
+
 export const shuffle = (arr: [number, number, string][]) => {
   let counter = arr.length
 
@@ -16,20 +31,20 @@ export const shuffle = (arr: [number, number, string][]) => {
   return arr
 }
 
-export const createWorld = () => {
+export const createWorld = (canvas: HTMLCanvasElement) => {
   const engine = Engine.create()
   engine.gravity.y = 0
 
-  const width = window.innerWidth
+  const width = window.innerWidth * 0.99
   const height = window.innerHeight * 0.9
 
-  const render = Render.create({ engine, options: { wireframes: false, width, height } })
+  const render = Render.create({ canvas, engine, options: { wireframes: false, width, height } })
 
   Render.run(render)
   Runner.run(Runner.create(), engine)
   const { world } = engine
 
-  return { engine, world, width, height, render }
+  return { engine, world, width, height }
 }
 
 export const buildWalls = (stage: number, width: number, height: number) => {
@@ -42,10 +57,10 @@ export const buildWalls = (stage: number, width: number, height: number) => {
   const wallsSize = border / 2
 
   const walls = [
-    Bodies.rectangle(width / 2, 0, width, border, { isStatic: true }),
-    Bodies.rectangle(width / 2, height, width, border, { isStatic: true }),
-    Bodies.rectangle(0, height / 2, border, height, { isStatic: true }),
-    Bodies.rectangle(width, height / 2, border, height, { isStatic: true }),
+    Bodies.rectangle(width / 2, 0, width, border, { label: 'border', isStatic: true, render: { fillStyle: '#5B6C5D' } }),
+    Bodies.rectangle(width / 2, height, width, border, { label: 'border', isStatic: true, render: { fillStyle: '#5B6C5D' } }),
+    Bodies.rectangle(0, height / 2, border, height, { label: 'border', isStatic: true, render: { fillStyle: '#5B6C5D' } }),
+    Bodies.rectangle(width, height / 2, border, height, { label: 'border', isStatic: true, render: { fillStyle: '#5B6C5D' } }),
   ]
 
   const verticals = Array(cellsVertical)
