@@ -1,6 +1,9 @@
+import { GameLevel } from '@/types'
 import { Bodies, Body, Engine, Events, Render, Runner } from 'matter-js'
 
-export const getLevel = (level: string) => {
+export const VELOCITY_VARIATION = 20
+
+export const getStage = (level: GameLevel) => {
   switch (level) {
     case 'easy':
       return 0
@@ -35,8 +38,8 @@ export const createWorld = (canvas: HTMLCanvasElement) => {
   const engine = Engine.create()
   engine.gravity.y = 0
 
-  const width = window.innerWidth * 0.99
-  const height = window.innerHeight * 0.9
+  const width = window.innerWidth
+  const height = window.innerHeight - 80
 
   const render = Render.create({ canvas, engine, options: { wireframes: false, width, height } })
 
@@ -53,7 +56,7 @@ export const buildWalls = (stage: number, width: number, height: number) => {
   const cellsVertical = cellsHorizontal / 2
 
   const initialB = 8
-  const border = initialB * Math.pow(0.95, stage)
+  const border = initialB * Math.pow(0.95, stage) * 5
   const wallsSize = border / 2
 
   const walls = [
@@ -186,22 +189,23 @@ export const buildBall = (unitLengthX: number, unitLengthY: number) => {
   return Bodies.circle(unitLengthX / 2, unitLengthY / 2, ballRadius, { label: 'ball', render: { fillStyle: '#56E39F' } })
 }
 
-export const addBallMovement = (ball: Body) => {
+export const addBallMovement = (ball: Body, stage: number) => {
   document.addEventListener('keydown', (event) => {
     const { x, y } = ball.velocity
+    const changeSpeed = VELOCITY_VARIATION - stage
 
     switch (event.key) {
       case 'ArrowUp':
-        Body.setVelocity(ball, { x, y: y - 5 })
+        Body.setVelocity(ball, { x, y: y - changeSpeed })
         break
       case 'ArrowRight':
-        Body.setVelocity(ball, { x: x + 5, y })
+        Body.setVelocity(ball, { x: x + changeSpeed, y })
         break
       case 'ArrowDown':
-        Body.setVelocity(ball, { x, y: y + 5 })
+        Body.setVelocity(ball, { x, y: y + changeSpeed })
         break
       case 'ArrowLeft':
-        Body.setVelocity(ball, { x: x - 5, y })
+        Body.setVelocity(ball, { x: x - changeSpeed, y })
         break
       default:
         break

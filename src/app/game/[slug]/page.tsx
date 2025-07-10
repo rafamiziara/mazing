@@ -1,27 +1,24 @@
-'use client'
-import { useCallback, useState } from 'react'
+import { GameLevel, GameLevels } from '@/types'
 import Header from './header'
 import Maze from './maze'
-import Message from './message'
 
 type Props = {
   params: {
-    slug: string
+    slug: GameLevel
   }
 }
 
-export default function Page({ params }: Props) {
-  const [finished, setFinished] = useState(false)
+export async function generateMetadata(): Promise<Props['params'][]> {
+  return GameLevels.map((level) => ({ slug: level }))
+}
 
-  const onFinished = useCallback(() => {
-    setFinished(true)
-  }, [])
+export default async function Page({ params }: Props) {
+  const { slug } = await params
 
   return (
     <>
       <Header />
-      <Maze level={params.slug} onFinished={onFinished} />
-      {finished && <Message />}
+      <Maze level={slug} />
     </>
   )
 }
