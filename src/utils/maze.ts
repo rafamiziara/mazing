@@ -1,22 +1,6 @@
-import { GameLevel } from '@/types'
 import { Bodies, Body, Engine, Events, Render, Runner } from 'matter-js'
 
 export const VELOCITY_VARIATION = 20
-
-export const getStage = (level: GameLevel) => {
-  switch (level) {
-    case 'easy':
-      return 0
-    case 'medium':
-      return 5
-    case 'hard':
-      return 10
-    case 'super-hard':
-      return 15
-    default:
-      return 0
-  }
-}
 
 export const shuffle = (arr: [number, number, string][]) => {
   let counter = arr.length
