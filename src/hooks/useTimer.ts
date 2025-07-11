@@ -5,7 +5,7 @@ const useTimer = ({ autoStart = true, interval = 1000, initialTime = 0 }) => {
   const [isRunning, setIsRunning] = useState(autoStart)
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
-  const start = useCallback(() => {
+  const play = useCallback(() => {
     setIsRunning(true)
   }, [])
 
@@ -33,7 +33,7 @@ const useTimer = ({ autoStart = true, interval = 1000, initialTime = 0 }) => {
     }
   }, [interval, isRunning])
 
-  return { time, start, pause, reset } as const
+  return { time, play, pause, reset } as const
 }
 
 export default useTimer
