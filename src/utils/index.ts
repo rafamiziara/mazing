@@ -13,3 +13,15 @@ export const shuffle = (arr: [number, number, string][]) => {
 
   return arr
 }
+
+export const getLevel = (stage: number) => {
+  if (stage < 5) {
+    return 'easy'
+  } else if (stage < 10) {
+    return 'medium'
+  } else if (stage < 15) {
+    return 'hard'
+  } else {
+    return 'super hard'
+  }
+}
