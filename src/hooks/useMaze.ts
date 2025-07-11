@@ -9,6 +9,7 @@ const VELOCITY_VARIATION = 20
 
 const useMaze = (canvas: HTMLCanvasElement | null) => {
   const [status, setStatus] = useState<GameStatus>('initializing')
+  const [ballBody, setBallBody] = useState<Body>()
   const [stageComposite, setStageComposite] = useState(Composite.create({ label: 'stage' }))
   const [engine, setEngine] = useState<Engine | null>(null)
 
@@ -201,25 +202,31 @@ const useMaze = (canvas: HTMLCanvasElement | null) => {
         const unitLengthY = height / cellsVertical
 
         const ballRadius = Math.min(unitLengthX, unitLengthY) / 4
-        const ball = Bodies.circle(unitLengthX / 2, unitLengthY / 2, ballRadius, { label: 'ball', render: { fillStyle: '#56E39F' } })
+        const ball = Bodies.circle(unitLengthX / 2, unitLengthY / 2, ballRadius, {
+          label: 'ball',
+          render: { fillStyle: '#56E39F' },
+        })
+
+        setBallBody(ball)
+
         Composite.add(stageComposite, ball)
 
         document.addEventListener('keydown', (event) => {
-          const { x, y } = ball!.velocity
+          const { x, y } = ball.velocity
           const changeSpeed = VELOCITY_VARIATION - stage
 
           switch (event.key) {
             case 'ArrowUp':
-              Body.setVelocity(ball!, { x, y: y - changeSpeed })
+              Body.setVelocity(ball, { x, y: y - changeSpeed })
               break
             case 'ArrowRight':
-              Body.setVelocity(ball!, { x: x + changeSpeed, y })
+              Body.setVelocity(ball, { x: x + changeSpeed, y })
               break
             case 'ArrowDown':
-              Body.setVelocity(ball!, { x, y: y + changeSpeed })
+              Body.setVelocity(ball, { x, y: y + changeSpeed })
               break
             case 'ArrowLeft':
-              Body.setVelocity(ball!, { x: x - changeSpeed, y })
+              Body.setVelocity(ball, { x: x - changeSpeed, y })
               break
             default:
               break
@@ -270,7 +277,17 @@ const useMaze = (canvas: HTMLCanvasElement | null) => {
     }
   }, [world, engine])
 
-  return { status, clearStage, buildStage } as const
+  const playGame = useCallback(() => {
+    setStatus('running')
+    if (ballBody) Body.setStatic(ballBody, false)
+  }, [ballBody])
+
+  const pauseGame = useCallback(() => {
+    setStatus('paused')
+    if (ballBody) Body.setStatic(ballBody, true)
+  }, [ballBody])
+
+  return { status, clearStage, buildStage, playGame, pauseGame } as const
 }
 
 export default useMaze

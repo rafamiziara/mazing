@@ -11,8 +11,10 @@ type Props = {
 
 export default function Game({ stage }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const { time, pause, start, reset } = useTimer({ autoStart: false })
-  const { status, buildStage, clearStage } = useMaze(canvasRef.current)
+  const { time, pause, play, reset } = useTimer({ autoStart: false })
+  const { status, buildStage, clearStage, playGame, pauseGame } = useMaze(canvasRef.current)
+  const isRunning = status === 'running'
+  const isPaused = status === 'paused'
 
   const onNext = useCallback(() => {
     clearStage()
@@ -23,9 +25,10 @@ export default function Game({ stage }: Props) {
     switch (status) {
       case 'initializing':
       case 'ready':
+        reset()
         break
       case 'running':
-        start()
+        play()
         break
       case 'paused':
       case 'finished':
@@ -34,7 +37,7 @@ export default function Game({ stage }: Props) {
       default:
         break
     }
-  }, [pause, start, status])
+  }, [pause, play, reset, status])
 
   return (
     <>
@@ -42,19 +45,27 @@ export default function Game({ stage }: Props) {
         <Link key="home" href="/" className="bg-slate-600 px-3 py-1.5 rounded-md">
           mazing
         </Link>
-        <div className="bg-slate-600 min-w-20 text-center py-1.5 rounded-md">{dayjs(time).format('mm:ss')}</div>
+        <div className="flex justify-end">
+          {(isRunning || isPaused) && (
+            <>
+              <Image onClick={clearStage} className="cursor-pointer mr-8" src="/refresh.png" alt="restart button" width={40} height={40} />
+              <Image
+                onClick={isRunning ? pauseGame : playGame}
+                className="cursor-pointer mr-8"
+                src={isRunning ? '/pause.png' : '/play.png'}
+                alt={isRunning ? 'pause button' : 'play_button'}
+                width={40}
+                height={40}
+              />
+            </>
+          )}
+          <div className="bg-slate-600 min-w-20 text-center py-1.5 rounded-md">{dayjs(time).format('mm:ss')}</div>
+        </div>
       </div>
       <canvas ref={canvasRef} />
       {status === 'ready' && (
         <div className="fixed top-32 bottom-0 right-0 left-0 z-10 flex justify-center items-center">
-          <Image
-            onClick={() => buildStage(stage)}
-            className=" cursor-pointer "
-            src="/play.png"
-            alt="play button"
-            width={150}
-            height={150}
-          />
+          <Image onClick={() => buildStage(stage)} className="cursor-pointer " src="/play.png" alt="play button" width={150} height={150} />
         </div>
       )}
       {status === 'finished' && (
