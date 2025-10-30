@@ -6,7 +6,7 @@ export default function Page() {
   }
 
   return (
-    <div className="grid grid-cols-6 gap-4 lg:gap-20 h-screen place-items-center font-[family-name:var(--font-fredoka)]">
+    <div className="grid grid-cols-6 gap-4 lg:gap-20 h-screen place-items-center font-(family-name:--font-fredoka)">
       <div className="col-span-6" />
       <div className="align-middle text-6xl md:text-8xl font-extrabold col-start-3 col-span-2">mazing</div>
       <Card title="easy" stage={0} className="bg-blue-400 lg:col-start-2" />

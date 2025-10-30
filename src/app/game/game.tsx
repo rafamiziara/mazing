@@ -44,7 +44,7 @@ export default function Game({ stage }: Props) {
 
   return (
     <>
-      <div className="flex justify-between place-items-center px-4 h-20 font-bold font-[family-name:var(--font-fredoka)]">
+      <div className="flex justify-between place-items-center px-4 h-20 font-bold font-(family-name:--font-fredoka)">
         <Link key="home" href="/" className="bg-slate-600 px-3 py-1.5 rounded-md z-20">
           mazing
         </Link>
@@ -68,7 +68,7 @@ export default function Game({ stage }: Props) {
         </div>
       )}
       {status === 'finished' && (
-        <div className="fixed top-32 left-0 right-0 z-10 flex flex-col items-center font-bold font-[family-name:var(--font-fredoka)]">
+        <div className="fixed top-32 left-0 right-0 z-10 flex flex-col items-center font-bold font-(family-name:--font-fredoka)">
           <div className="place-items-center my-8">
             <h1 className="text-4xl mb-4">Well done!</h1>
             <p>You completed this stage in {dayjs(time).second()} seconds!</p>
