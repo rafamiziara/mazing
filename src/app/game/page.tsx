@@ -12,5 +12,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 
 export default async function Page({ searchParams }: Props) {
   const { stage } = await searchParams
-  return <Game stage={parseInt(stage)} />
+  const stageNum = parseInt(stage) || 0
+  const validStage = Math.max(0, Math.min(stageNum, 19))
+  return <Game stage={validStage} />
 }
