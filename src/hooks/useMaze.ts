@@ -1,3 +1,4 @@
+import useGameControls from '@/hooks/useGameControls'
 import { GameStatus } from '@/types'
 import { shuffle } from '@/utils'
 import { Bodies, Body, Composite, Engine, Events, Render, Runner, World } from 'matter-js'
@@ -5,13 +6,18 @@ import { useCallback, useEffect, useState } from 'react'
 
 const INITIAL_H = 6
 const INITIAL_B = 6
-const VELOCITY_VARIATION = 20
 
-const useMaze = (canvas: HTMLCanvasElement | null) => {
+const useMaze = (canvas: HTMLCanvasElement | null, currentStage: number = 0) => {
   const [status, setStatus] = useState<GameStatus>('initializing')
   const [ballBody, setBallBody] = useState<Body>()
   const [stageComposite, setStageComposite] = useState(Composite.create({ label: 'stage' }))
   const [engine, setEngine] = useState<Engine | null>(null)
+
+  useGameControls({
+    ballBody,
+    stage: currentStage,
+    isActive: status === 'running',
+  })
 
   const world = engine?.world
   const width = window.innerWidth
@@ -210,28 +216,6 @@ const useMaze = (canvas: HTMLCanvasElement | null) => {
         setBallBody(ball)
 
         Composite.add(stageComposite, ball)
-
-        document.addEventListener('keydown', (event) => {
-          const { x, y } = ball.velocity
-          const changeSpeed = VELOCITY_VARIATION - stage
-
-          switch (event.key) {
-            case 'ArrowUp':
-              Body.setVelocity(ball, { x, y: y - changeSpeed })
-              break
-            case 'ArrowRight':
-              Body.setVelocity(ball, { x: x + changeSpeed, y })
-              break
-            case 'ArrowDown':
-              Body.setVelocity(ball, { x, y: y + changeSpeed })
-              break
-            case 'ArrowLeft':
-              Body.setVelocity(ball, { x: x - changeSpeed, y })
-              break
-            default:
-              break
-          }
-        })
 
         Events.on(engine, 'collisionStart', (event) => {
           event.pairs.forEach(({ bodyA, bodyB }) => {
