@@ -16,7 +16,7 @@ const useMaze = (canvas: HTMLCanvasElement | null, currentStage: number = 0) => 
   useGameControls({
     ballBody,
     stage: currentStage,
-    isActive: status === 'running',
+    isActive: status === 'running' || status === 'finished',
   })
 
   const world = engine?.world
