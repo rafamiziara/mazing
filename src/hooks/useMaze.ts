@@ -12,6 +12,8 @@ const useMaze = (canvas: HTMLCanvasElement | null, currentStage: number = 0) => 
   const [ballBody, setBallBody] = useState<Body>()
   const [stageComposite, setStageComposite] = useState(Composite.create({ label: 'stage' }))
   const [engine, setEngine] = useState<Engine | null>(null)
+  const [render, setRender] = useState<Render | null>(null)
+  const [runner, setRunner] = useState<Runner | null>(null)
 
   useGameControls({
     ballBody,
@@ -27,9 +29,14 @@ const useMaze = (canvas: HTMLCanvasElement | null, currentStage: number = 0) => 
     if (!engine) setEngine(Engine.create())
 
     if (engine && status === 'initializing') {
-      const render = Render.create({ canvas: canvas ?? undefined, engine, options: { wireframes: false, width, height } })
-      Render.run(render)
-      Runner.run(Runner.create(), engine)
+      const newRender = Render.create({ canvas: canvas ?? undefined, engine, options: { wireframes: false, width, height } })
+      const newRunner = Runner.create()
+
+      Render.run(newRender)
+      Runner.run(newRunner, engine)
+
+      setRender(newRender)
+      setRunner(newRunner)
       setStatus('ready')
     }
   }, [engine, status, canvas, width, height])
@@ -37,6 +44,25 @@ const useMaze = (canvas: HTMLCanvasElement | null, currentStage: number = 0) => 
   useEffect(() => {
     if (status === 'initializing') init()
   }, [init, status])
+
+  // Cleanup Matter.js resources on unmount
+  useEffect(() => {
+    return () => {
+      if (render) {
+        Render.stop(render)
+        render.canvas.remove()
+        render.textures = {}
+      }
+
+      if (runner) {
+        Runner.stop(runner)
+      }
+
+      if (engine) {
+        Engine.clear(engine)
+      }
+    }
+  }, [render, runner, engine])
 
   const buildBorders = useCallback(
     (stage: number) => {
