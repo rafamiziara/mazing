@@ -1,4 +1,5 @@
 'use client'
+
 import { useMaze, useTimer } from '@/hooks'
 import { getLevel } from '@/utils'
 import dayjs from 'dayjs'
@@ -14,7 +15,7 @@ type Props = {
 export default function Game({ stage }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const { time, pause, play, reset } = useTimer({ autoStart: false })
-  const { status, buildStage, clearStage, playGame, pauseGame } = useMaze(canvasRef.current)
+  const { status, buildStage, clearStage, playGame, pauseGame } = useMaze(canvasRef.current, stage)
   const isRunning = status === 'running'
   const isPaused = status === 'paused'
 
