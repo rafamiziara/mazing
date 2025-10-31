@@ -1,13 +1,13 @@
 import { Engine, Render, Runner } from 'matter-js'
-import { useCallback, useEffect, useState } from 'react'
+import { RefObject, useCallback, useEffect, useState } from 'react'
 
 interface UseMatterEngineProps {
-  canvas: HTMLCanvasElement | null
+  canvasRef: RefObject<HTMLCanvasElement | null>
   width: number
   height: number
 }
 
-const useMatterEngine = ({ canvas, width, height }: UseMatterEngineProps) => {
+const useMatterEngine = ({ canvasRef, width, height }: UseMatterEngineProps) => {
   const [engine, setEngine] = useState<Engine | null>(null)
   const [render, setRender] = useState<Render | null>(null)
   const [runner, setRunner] = useState<Runner | null>(null)
@@ -18,7 +18,7 @@ const useMatterEngine = ({ canvas, width, height }: UseMatterEngineProps) => {
 
     if (engine && !isReady) {
       const newRender = Render.create({
-        canvas: canvas ?? undefined,
+        canvas: canvasRef?.current ?? undefined,
         engine,
         options: { wireframes: false, width, height },
       })
@@ -31,7 +31,7 @@ const useMatterEngine = ({ canvas, width, height }: UseMatterEngineProps) => {
       setRunner(newRunner)
       setIsReady(true)
     }
-  }, [engine, isReady, canvas, width, height])
+  }, [engine, isReady, canvasRef, width, height])
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect

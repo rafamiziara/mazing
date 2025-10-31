@@ -1,16 +1,16 @@
 import { useCollisionDetection, useGameControls, useMatterEngine, useStageBuilder } from '@/hooks'
 import { GameStatus } from '@/types'
 import { Body } from 'matter-js'
-import { useCallback, useEffect, useState } from 'react'
+import { RefObject, useCallback, useEffect, useState } from 'react'
 
-const useMaze = (canvas: HTMLCanvasElement | null, currentStage: number = 0) => {
+const useMaze = (canvasRef: RefObject<HTMLCanvasElement | null>, currentStage: number = 0) => {
   const [status, setStatus] = useState<GameStatus>('initializing')
 
   const width = window.innerWidth
   const height = window.innerHeight - 80
 
   // Initialize Matter.js physics engine
-  const { engine, world, isReady } = useMatterEngine({ canvas, width, height })
+  const { engine, world, isReady } = useMatterEngine({ canvasRef, width, height })
 
   // Build stage elements (borders, walls, goal, ball)
   const {
