@@ -14,6 +14,7 @@ A dynamic maze game built with Next.js and Matter.js physics engine. Navigate th
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js (v18 or later)
 - npm or yarn
 
@@ -41,19 +42,21 @@ Open [http://localhost:3000](http://localhost:3000) to play the game.
 4. **Progress**: Complete stages to unlock higher difficulty levels
 
 ### Controls
+
 - `↑↓←→` Arrow keys: Move the ball
 - `Pause/Play` button: Pause or resume the game
 - `Restart` button: Reset the current stage
 
 ## 🛠️ Built With
 
-- **[Next.js 15](https://nextjs.org/)** - React framework with App Router
+- **[Next.js 16](https://nextjs.org/)** - React framework with App Router
 - **[React 19](https://react.dev/)** - UI library
-- **[TypeScript](https://www.typescriptlang.org/)** - Type safety
+- **[TypeScript](https://www.typescriptlang.org/)** - Type safety with strict mode
 - **[Matter.js](https://brm.io/matter-js/)** - 2D physics engine
 - **[Tailwind CSS 4.x](https://tailwindcss.com/)** - Utility-first CSS
 - **[Day.js](https://day.js.org/)** - Date/time handling
 - **[Lucide React](https://lucide.dev/)** - Icon library
+- **[ESLint](https://eslint.org/)** + **[Prettier](https://prettier.io/)** - Code quality and formatting
 
 ## 📝 Available Scripts
 
@@ -61,12 +64,13 @@ Open [http://localhost:3000](http://localhost:3000) to play the game.
 npm run dev      # Start development server
 npm run build    # Build for production
 npm run start    # Start production server
-npm run lint     # Run ESLint with Prettier
+npm run lint     # Run ESLint and Prettier
 ```
 
 ## 🎮 Game Architecture
 
 The game uses a state-driven architecture with five core states:
+
 - `initializing` - Setting up the physics engine
 - `ready` - Waiting for player input to start
 - `running` - Active gameplay
@@ -78,15 +82,19 @@ The game uses a state-driven architecture with five core states:
 ```
 src/
 ├── app/
-│   ├── components/     # Reusable UI components
-│   ├── game/          # Game page and core game logic
-│   └── page.tsx       # Home page with difficulty selection
+│   ├── components/               # Reusable UI components
+│   ├── game/                     # Game page and core game logic
+│   └── page.tsx                  # Home page with difficulty selection
 ├── hooks/
-│   ├── useGameControls.ts  # Keyboard event management
-│   ├── useMaze.ts          # Maze generation and physics
-│   └── useTimer.ts         # Timer functionality
-├── types/             # TypeScript type definitions
-└── utils/             # Utility functions
+│   ├── useGameControls.ts        # Keyboard event management
+│   ├── useMaze.ts                # Main game logic orchestration
+│   ├── useMatterEngine.ts        # Matter.js physics engine management
+│   ├── useStageBuilder.ts        # Stage construction and physics setup
+│   ├── useCollisionDetection.ts  # Ball collision handling
+│   └── useTimer.ts               # Timer functionality
+├── types/                        # TypeScript type definitions
+└── utils/
+    └── mazeGenerator.ts          # Recursive backtracking maze algorithm
 ```
 
 ## 🤝 Contributing
