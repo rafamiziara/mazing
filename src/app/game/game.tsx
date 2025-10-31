@@ -15,7 +15,7 @@ type Props = {
 export default function Game({ stage }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const { time, pause, play, reset } = useTimer({ autoStart: false })
-  const { status, buildStage, clearStage, playGame, pauseGame } = useMaze(canvasRef.current, stage)
+  const { status, buildStage, clearStage, playGame, pauseGame } = useMaze(canvasRef, stage)
   const isRunning = status === 'running'
   const isPaused = status === 'paused'
 
