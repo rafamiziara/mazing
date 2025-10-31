@@ -28,7 +28,6 @@ const useTimer = ({ autoStart = true, interval = 1000, initialTime = 0 }) => {
     }
 
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       clearInterval(timerRef.current!)
     }
   }, [interval, isRunning])
