@@ -6,8 +6,9 @@ import { RefObject, useCallback, useEffect, useState } from 'react'
 const useMaze = (canvasRef: RefObject<HTMLCanvasElement | null>, currentStage: number = 0) => {
   const [status, setStatus] = useState<GameStatus>('initializing')
 
-  const width = window.innerWidth
-  const height = window.innerHeight - 80
+  // SSR-safe window access with fallback dimensions
+  const width = typeof window !== 'undefined' ? window.innerWidth : 1024
+  const height = typeof window !== 'undefined' ? window.innerHeight - 80 : 768
 
   // Initialize Matter.js physics engine
   const { engine, world, isReady } = useMatterEngine({ canvasRef, width, height })
