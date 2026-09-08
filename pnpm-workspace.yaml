@@ -1,0 +1,4 @@
+# Not a monorepo. This file exists only because pnpm reads build-script approvals
+# from here. npm ran them unconditionally; unrs-resolver backs the ESLint resolver.
+allowBuilds:
+  unrs-resolver: true
