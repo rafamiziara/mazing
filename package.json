@@ -1,12 +1,14 @@
 {
   "name": "mazing",
   "version": "1.0.0",
-  "description": "mazing — carry your light through the labyrinth",
+  "description": "mazing â€” carry your light through the labyrinth",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "typecheck": "tsc --noEmit",
+    "check": "biome check .",
+    "check:fix": "biome check --write ."
   },
   "keywords": [],
   "author": "Rafael Miziara",
@@ -20,12 +22,11 @@
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.5.12",
+    "@rm30/biome-config": "^0.1.0",
     "@tailwindcss/postcss": "^4.1.16",
     "@types/node": "24.9.2",
     "@types/react": "19.2.2",
-    "eslint": "^9.38.0",
-    "eslint-config-next": "16.0.1",
-    "eslint-config-prettier": "^10.1.8",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.16",
     "typescript": "^7.0.2"

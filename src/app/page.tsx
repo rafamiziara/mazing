@@ -1,7 +1,7 @@
-import Link from "next/link";
-import AmbientMaze from "@/components/AmbientMaze";
-import { LogoFull } from "@/components/Logo";
-import BestStats, { DailyBadge } from "@/components/BestStats";
+import Link from 'next/link'
+import AmbientMaze from '@/components/AmbientMaze'
+import BestStats, { DailyBadge } from '@/components/BestStats'
+import { LogoFull } from '@/components/Logo'
 
 export default function Home() {
   return (
@@ -14,17 +14,11 @@ export default function Home() {
         <header className="flex flex-col items-center gap-8">
           <LogoFull height={72} className="h-14 w-auto sm:h-[72px]" />
           <div>
-            <p className="font-mono text-[11px] tracking-[0.35em] text-gold/70 uppercase">
-              a game of mazes, light and memory
-            </p>
-            <h1 className="mt-4 font-display text-3xl leading-tight tracking-wide text-parchment sm:text-4xl">
-              Your light is your life.
-            </h1>
+            <p className="font-mono text-[11px] tracking-[0.35em] text-gold/70 uppercase">a game of mazes, light and memory</p>
+            <h1 className="mt-4 font-display text-3xl leading-tight tracking-wide text-parchment sm:text-4xl">Your light is your life.</h1>
             <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-parchment/70">
-              You are an ember in a maze that never ends. The flame burns
-              down with every step, sparks rekindle it, and a red thread
-              remembers every corridor you&apos;ve dared. Find the portal
-              before the dark catches you.
+              You are an ember in a maze that never ends. The flame burns down with every step, sparks rekindle it, and a red thread
+              remembers every corridor you&apos;ve dared. Find the portal before the dark catches you.
             </p>
           </div>
 
@@ -49,8 +43,7 @@ export default function Home() {
             </svg>
             <h2 className="font-display text-sm tracking-[0.2em] text-ember uppercase">The flame</h2>
             <p className="mt-2 text-sm leading-relaxed text-parchment/65">
-              The light around you shrinks over time. Collect sparks ✦ to
-              rekindle it — and to see further.
+              The light around you shrinks over time. Collect sparks ✦ to rekindle it — and to see further.
             </p>
           </div>
           <div className="rounded-xl border border-white/8 bg-night-high/50 p-5 text-left backdrop-blur-sm">
@@ -60,8 +53,7 @@ export default function Home() {
             </svg>
             <h2 className="font-display text-sm tracking-[0.2em] text-thread uppercase">The thread</h2>
             <p className="mt-2 text-sm leading-relaxed text-parchment/65">
-              Like Ariadne, you leave a red thread behind you. What you&apos;ve
-              seen remains in memory, in a dim, distant purple light.
+              Like Ariadne, you leave a red thread behind you. What you&apos;ve seen remains in memory, in a dim, distant purple light.
             </p>
           </div>
           <div className="rounded-xl border border-white/8 bg-night-high/50 p-5 text-left backdrop-blur-sm">
@@ -72,16 +64,14 @@ export default function Home() {
             </svg>
             <h2 className="font-display text-sm tracking-[0.2em] text-portal uppercase">The echo</h2>
             <p className="mt-2 text-sm leading-relaxed text-parchment/65">
-              Press space to release an echo that runs along the corridors
-              and shows you, for a moment, the way out. Use it wisely.
+              Press space to release an echo that runs along the corridors and shows you, for a moment, the way out. Use it wisely.
             </p>
           </div>
         </section>
 
         <footer className="mt-4 space-y-3">
           <p className="max-w-lg text-sm leading-relaxed text-parchment/50">
-            Every descent is generated on the spot: winding corridors,
-            branching galleries, ever denser weaves. No maze exists twice —
+            Every descent is generated on the spot: winding corridors, branching galleries, ever denser weaves. No maze exists twice —
             except the daily one, the same for everyone.
           </p>
           <p className="font-mono text-[11px] tracking-widest text-parchment/35 uppercase">
@@ -90,5 +80,5 @@ export default function Home() {
         </footer>
       </div>
     </main>
-  );
+  )
 }
