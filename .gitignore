@@ -42,3 +42,9 @@ next-env.d.ts
 
 # others
 todo.md
+
+# Claude Code files - keep *.local.json ignored
+.claude/*.local.json
+
+# Graphify
+graphify-out/
